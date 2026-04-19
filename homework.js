@@ -219,7 +219,12 @@ function addToCart(carts, product, quantity) {
   const newCarts = [...carts];
   if (findProductIndex < 0) {
     newCarts.push({ id: `cart-${Date.now()}`, product, quantity });
-  } else newCarts[findProductIndex].quantity += quantity;
+  } else {
+    newCarts[findProductIndex]= {
+      ...newCarts[findProductIndex],
+      quantity: newCarts[findProductIndex].quantity + quantity
+    }
+  }
   return newCarts;
 }
 
@@ -309,7 +314,7 @@ function filterOrdersByStatus(orders, isPaid) {
  */
 function generateOrderReport(orders) {
   const averageOrderValue =
-    Math.round(orders.reduce((total, order) => total + order.total) / orders.length);
+    Math.round(orders.reduce((total, order) => total + order.total) / orders.length, 0);
 
   // 請實作此函式
   return {
